@@ -1,0 +1,11 @@
+*{
+
+}
+
+.col-4 {
+    border: solid 1px black;
+    width: 350px;
+    height: 350px;
+    margin: 20px 20px 20px 20px;
+    background-color: rgba(191, 227, 248, 0.774);
+}
