@@ -1,7 +1,7 @@
 const Intern = require("../lib/intern");
 
 describe("This tests the intern class ", ()=> {
-    it("should have a school property when instantiated with the school parameter", ()=> {
+    it("test should have a school property", ()=> {
         const name = "Maria";
         const id = 7;
         const email = "maria@yahoo.com"
@@ -11,7 +11,7 @@ describe("This tests the intern class ", ()=> {
         expect(emp.school).toEqual(school);
     })
 
-    it("Should return the school property when getschool method is invoked", ()=> {
+    it("when getSchool is invoked it should return a school property", ()=> {
         const name = "Maria";
         const id = 7;
         const email = "maria@yahoo.com"
@@ -21,7 +21,7 @@ describe("This tests the intern class ", ()=> {
         expect(emp.getSchool()).toEqual(school);
     })
 
-    it("Should return 'Intern' when the getRole method is invoked", ()=> {
+    it("should return intern for role", ()=> {
         const name = "Maria";
         const id = 7;
         const email = "maria@yahoo.com"

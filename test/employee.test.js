@@ -20,7 +20,7 @@ describe("TEST FOR EMPLOYEE CLASS", ()=> {
         expect(emp.id).toEqual(id);
     });
 
-    it("Should have a email property when instantiated with a email parameter", ()=> {
+    it("should have a email property whehn email is an option", ()=> {
         const name = "Maria";
         const id = 7;
         const email = "maria@yahoo.com"
@@ -30,7 +30,7 @@ describe("TEST FOR EMPLOYEE CLASS", ()=> {
 
 
     //test methods
-    it("Should return the name of the object when getName method is invoked", ()=> {
+    it("dhould return name of object when get name is invoked", ()=> {
         const name = "Maria";
         const id = 7;
         const email = "maria@yahoo.com"
@@ -38,7 +38,7 @@ describe("TEST FOR EMPLOYEE CLASS", ()=> {
         expect(emp.getName()).toEqual(name)
     });
 
-    it("Should return the id of the object when getId method is invoked", ()=> {
+    it("should return id number when id is invoked", ()=> {
         const name = "Maria";
         const id = 7;
         const email = "maria@yahoo.com"
@@ -46,7 +46,7 @@ describe("TEST FOR EMPLOYEE CLASS", ()=> {
         expect(emp.getId()).toEqual(id)
     })
 
-    it("Should return the email of the object when getEmail method is invoked", ()=> {
+    it("should return email when email is invoked", ()=> {
         const name = "Molly";
         const id = 7;
         const email = "maria@yahoo.com"
@@ -54,7 +54,7 @@ describe("TEST FOR EMPLOYEE CLASS", ()=> {
         expect(emp.getEmail()).toEqual(email)
     })
 
-    it("Should return 'Employee' when the getRole method is called", ()=> {
+    it("should return employee when getrole is invoked", ()=> {
         const name = "Maria";
         const id = 7;
         const email = "maria@yahoo.com"
