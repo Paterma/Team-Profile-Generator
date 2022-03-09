@@ -1,3 +1,4 @@
+//setting up my variables
 const inquirer = require("inquirer");
 const fs = require("fs");
 const Intern = require("./lib/intern");
@@ -5,9 +6,11 @@ const Manager = require("./lib/manager");
 const Engineer = require("./lib/engingeer");
 const employees = [];
 
+//calling the function for the first manager box
 function begin() {
 firstBox();
 }
+//inital prompts starting off with the manager
 function firstBox() {
 inquirer.prompt([
     {
@@ -33,21 +36,21 @@ inquirer.prompt([
     ])
 
     .then((data) => {
-      //got data with inquirer
+    //got data with inquirer
 
-      //create the person by instantiating the class
-    let person = new Manager(data.managerName, data.IDnum, data.email, data.role, data.officeNum);
+    //create the person by instantiating the class
+    let person = new Manager(data.managerName, data.IDnum, data.email, data.role, data.officeNumber);
 
-      //create the html
+    //create the html
     const name = person.getName();
     const role = person.getRole();
     const email = person.getEmail();
     const IDnum = person.getId();
-    const officeNum = person.getOfficeNumber();
+    const officeNumber = person.getOfficeNumber();
 
       //call additional q here
     additionalBoxes()
-
+//creating my base html for the manager box
     const html = `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -78,15 +81,15 @@ inquirer.prompt([
                         <th scope="row">Email: ${email}</th>
                         </tr>
                         <tr>
-                        <th id="managerQ" scope="row">Office number: ${officeNum}</th>
+                        <th id="managerQ" scope="row">Office number: ${officeNumber}</th>
                         </tr>
                     </tbody>
                     </table>`
-                    employees.push(html)
+                    employees.push(html) //adding the employees to the html
     });
 }
 
-
+//creating a function for the additional employee types
 function additionalBoxes() {
     inquirer.prompt([
         {
@@ -95,8 +98,8 @@ function additionalBoxes() {
         choices: ["Intern", "Engineer", "Done building team"],
         name: "role",
     },
+    //asking the intern questions
     ]) .then(data => {
-
     if (data.role === "Intern") {
     inquirer.prompt([
         {
@@ -119,7 +122,7 @@ function additionalBoxes() {
         message: "What school does the intern go to?",
         name: "school",
         },
-
+//creating the intern html
     ]) .then(data => {
     let person = new Intern(data.name, data.IDnum, data.email, data.role, data.school);
     const school = person.getSchool();
@@ -149,7 +152,7 @@ function additionalBoxes() {
                 employees.push(html)
                 additionalBoxes()
     })
-
+//prompting the engineer questions
     } else if (data.role === "Engineer") {
     inquirer.prompt([
         {
@@ -172,10 +175,10 @@ function additionalBoxes() {
         message: "What is the engineer's Github username?",
         name: "gitHub",
         },
-
+//Creating the engineer HTML
     ]) .then(data => {
     let person = new Engineer(data.name, data.IDnum, data.email, data.role, data.github);
-    const gitHub = person.getGithub();
+    const github = person.getGithub();
     const html =
     `<div id="engineerBox" class="col-4">
                 <table class="table engineer">
@@ -194,32 +197,30 @@ function additionalBoxes() {
                         <th scope="row">Email:${person.getEmail()}</th>
                         </tr>
                     <tr>
-                        <th scope="row">Github:${gitHub}</th>
+                        <th scope="row">Github:${github}</th>
                         </tr>
                     </tbody>
                     </table>
             </div>`;
-            employees.push(html)
-            additionalBoxes()
+            employees.push(html) //pushing the new data to the array
+            additionalBoxes() //calling additional boxes
     })
     } else {
-        employees.push(closingHTML)
-        // ${employees.map(employee => employee.generateHTMLCard(employee.officeNumber || employee.github || employee.school)).join("\n")}
-        employees.join(person => person (person.officeNum || person.gitHub || person.school))
+        employees.push(closingHTML) //adding the closing html to the array
+        employees.join() //stringing together the array of employees
+        
+        fs.writeFile("./Dist/employeeinfo.html", employees, (err) => { //writing the html file with the info
         console.log("The information has been generated!");
-        fs.writeFile("index.html", employees, (err) => {
         err ? console.error(err) : console.log("There was an error");
         });
     }
-
-
 })
 }
 
+//calling the function to begin the questions
 begin();
 
-//turn employees array into string do that in the else statement at 268
-
+//the closing HTML for the page
 let closingHTML =
     `</div>
     </div>
