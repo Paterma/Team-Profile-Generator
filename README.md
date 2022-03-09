@@ -35,9 +35,11 @@ THEN I exit the application, and the HTML is generated
 
 I am submitting the following for review:
 
-* A walkthrough video that demonstrates the functionality of the application and passing tests.
+* A walkthrough video that demonstrates the functionality of the application and passing tests:
+https://drive.google.com/file/d/1YKs2AOofPlrdrdsZH_l00mncaACXWmpm/view?usp=sharing
 
-* A sample HTML file generated using my application.
+
+* A sample HTML file generated using my application:
 ![Screenshot of my generated HTML file](/Dist/Screenshot-Employee-G.PNG)
 
 * The URL of the GitHub repository, with a unique name and a readme describing the project:
