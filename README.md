@@ -38,7 +38,7 @@ I am submitting the following for review:
 * A walkthrough video that demonstrates the functionality of the application and passing tests.
 
 * A sample HTML file generated using my application.
-![Screenshot of my generated HTML file]()
+![Screenshot of my generated HTML file](/Dist/Screenshot-Employee-G.PNG)
 
 * The URL of the GitHub repository, with a unique name and a readme describing the project:
 https://github.com/Paterma/Team-Profile-Generator
