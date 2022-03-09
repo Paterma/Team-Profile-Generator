@@ -5,98 +5,29 @@ const Manager = require("./lib/manager");
 const Engineer = require("./lib/engingeer");
 const employees = [];
 
-
-
-
-//live coding today
-
-// const managerPrompt = [
-//     {
-//         type: "input",
-//         message: "What is the manager's name?",
-//         name: "name",
-//     },
-//     {
-//         type: "input",
-//         message: "What is the manager's ID number?",
-//         name: "IDnum",
-//     },
-//     {
-//         type: "input",
-//         message: "What is the mamager's email?", //make sure to do MAIL TO
-//         name: "email",
-//     },
-// ]
-
-// function main(){
-//     prompt(managerPrompt).then(data => {
-//         console.log(data)
-//         const manager = new Manager(data.name, data.IDnum, data.email, data.officeNum);
-//         employees.push(managers);
-//     })
-// }
-// main()
-
-
-
-// function addEmployees(){
-//     prompt[
-//             {
-//             type: "list",
-//             message: "What would you like to do?",
-//             choices: ["Add an employee", "create roster"],
-//             name: "choice",
-//             }]
-//             .then(data => {
-//                 console.log("Your choice ---", data.choice)
-//                 if(data.choice === "Add an employee"){
-//                     const emp = new Engineer(data.name, data.id, data.email, data.extra);
-//                     employees.push(emp)
-//                 } else{
-//                     const emp = new Intern(data.name, data.id, data.email, data.extra);
-//                     employees.push(emp)
-//                 }
-//                 console.log(`${data.role} added to team!`)
-//                 setTimeout(addEmployee, 1500)
-//             })
-// } else {
-
-// }
-
-
-//end live coding today
-
-
 function begin() {
 firstBox();
-
 }
 function firstBox() {
 inquirer.prompt([
     {
         type: "input",
-        message: "What is your name?",
+        message: "What is the manager's name?",
         name: "managerName",
     },
     {
         type: "input",
-        message: "What is your ID number?",
+        message: "What is the manager's ID number?",
         name: "IDnum",
     },
     {
         type: "input",
-        message: "What is your email?", //make sure to do MAIL TO
+        message: "What is the manager's email?", //make sure to do MAIL TO
         name: "email",
     },
     {
-        type: "list",
-        message: "What is your role?",
-        choices: ["Manager", "Employee", "Intern", "Engineer"],
-        name: "role",
-    },
-    {
         type: "input",
-        message: "What is your office number?",
+        message: "What is the manager's office number?",
         name: "officeNum",
     },
     ])
@@ -105,19 +36,17 @@ inquirer.prompt([
       //got data with inquirer
 
       //create the person by instantiating the class
-    const person = new Manager(data.managerName, data.IDnum, data.email, data.role, data.officeNum);
-    person = new Intern(data.name, data.IDnum, data.email, data.role, data.school);
-    person = new Engineer(data.name, data.IDnum, data.email, data.role, data.gitHub);
-
+    let person = new Manager(data.managerName, data.IDnum, data.email, data.role, data.officeNum);
 
       //create the html
     const name = person.getName();
     const role = person.getRole();
     const email = person.getEmail();
-    const ID = person.getIDnum();
+    const IDnum = person.getId();
+    const officeNum = person.getOfficeNumber();
 
       //call additional q here
-    additionalBoxes(person)
+    additionalBoxes()
 
     const html = `<!DOCTYPE html>
     <html lang="en">
@@ -136,137 +65,164 @@ inquirer.prompt([
                 <table class="table manager">
                     <thead>
                         <tr>
-                        <th scope="col">${data.name}</th>
+                        <th scope="col">${name}</th>
                         <th scope="col" id="badge"></th>
-                        <th scope="col">${data.role}</th>
+                        <th scope="col">${role}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        <th scope="row">ID:${data.IDnum}</th>
+                        <th scope="row">ID:${IDnum}</th>
                         </tr>
                         <tr>
-                        <th scope="row">Email: ${data.email}</th>
+                        <th scope="row">Email: ${email}</th>
+                        </tr>
+                        <tr>
+                        <th id="managerQ" scope="row">Office number: ${officeNum}</th>
                         </tr>
                     </tbody>
-                    </table>
-            </div>
-            </div>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    </body>
-    </html>`;
+                    </table>`
+                    employees.push(html)
     });
 }
-function additionalBoxes(person) {
-return new Promise(function (resolve, reject) {
-    let data = "";
-    if (person.getRole() === "Intern") {
+
+
+function additionalBoxes() {
     inquirer.prompt([
         {
+        type: "list",
+        message: "What is your role?",
+        choices: ["Intern", "Engineer", "Done building team"],
+        name: "role",
+    },
+    ]) .then(data => {
+
+    if (data.role === "Intern") {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the intern's name?",
+            name: "managerName",
+        },
+        {
+            type: "input",
+            message: "What is the intern's ID number?",
+            name: "IDnum",
+        },
+        {
+            type: "input",
+            message: "What is the intern's email?", //make sure to do MAIL TO
+            name: "email",
+        },
+        {
         type: "input",
-        message: "What school do you go to?",
+        message: "What school does the intern go to?",
         name: "school",
         },
-    ]);
+
+    ]) .then(data => {
+    let person = new Intern(data.name, data.IDnum, data.email, data.role, data.school);
     const school = person.getSchool();
+    const html =
     `<div id="internBox" class="col-4">
                 <table class="table intern">
                     <thead>
                         <tr>
-                        <th scope="col">${data.name}</th>
+                        <th scope="col">${person.getName()}</th>
                         <th scope="col" id="badge"></th>
-                        <th scope="col">${data.role}</th>
+                        <th scope="col">${person.getRole()}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        <th scope="row">ID:${data.IDnum}</th>
+                        <th scope="row">ID:${person.getId()}</th>
                         </tr>
                         <tr>
-                        <th scope="row">Email:${data.email}</th>
+                        <th scope="row">Email:${person.getEmail()}</th>
                         </tr>
                         <tr>
-                        <th scope="row">School: ${data.school}</th>
+                        <th scope="row">School: ${school}</th>
                         </tr>
                     </tbody>
                     </table>
                 </div>`;
-    } else if (role === "Manager") {
+                employees.push(html)
+                additionalBoxes()
+    })
+
+    } else if (data.role === "Engineer") {
     inquirer.prompt([
         {
-        type: "input",
-        message: "What is your office number?",
-        name: "officeNum",
+            type: "input",
+            message: "What is the engineer's name?",
+            name: "managerName",
         },
-    ]);
-    const officeNum = person.getOfficeNum();
-    `<div id="managerBox" class="col-4">
-                <table class="table employee">
-                    <thead>
-                        <tr>
-                        <th scope="col">${data.name}</th>
-                        <th scope="col" id="badge"></th>
-                        <th scope="col">${data.role}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">ID:${data.IDnum}</th>
-                        </tr>
-                        <tr>
-                        <th scope="row">Email:${data.email}</th>
-                        </tr>
-                        <tr>
-                        <th id="managerQ" scope="row">Office number: ${data.officeNum}</th>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>`;
-    } else if (role === "Engineer") {
-    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the engineer's ID number?",
+            name: "IDnum",
+        },
+        {
+            type: "input",
+            message: "What is the engineer's email?", //make sure to do MAIL TO
+            name: "email",
+        },
         {
         type: "input",
-        message: "What is your Github username?",
+        message: "What is the engineer's Github username?",
         name: "gitHub",
         },
-    ]);
+
+    ]) .then(data => {
+    let person = new Engineer(data.name, data.IDnum, data.email, data.role, data.github);
     const gitHub = person.getGithub();
+    const html =
     `<div id="engineerBox" class="col-4">
                 <table class="table engineer">
                     <thead>
                         <tr>
-                        <th scope="col">${data.name}</th>
+                        <th scope="col">${person.getName()}</th>
                         <th scope="col" id="badge"></th>
-                        <th scope="col">${data.role}</th>
+                        <th scope="col">${person.getRole()}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        <th scope="row">ID:${data.IDnum}</th>
+                        <th scope="row">ID:${person.getId()}</th>
                         </tr>
                         <tr>
-                        <th scope="row">Email:${data.email}</th>
+                        <th scope="row">Email:${person.getEmail()}</th>
                         </tr>
                     <tr>
-                        <th scope="row">Github:${data.gitHub}</th>
+                        <th scope="row">Github:${gitHub}</th>
                         </tr>
                     </tbody>
                     </table>
             </div>`;
+            employees.push(html)
+            additionalBoxes()
+    })
+    } else {
+        employees.push(closingHTML)
+        // ${employees.map(employee => employee.generateHTMLCard(employee.officeNumber || employee.github || employee.school)).join("\n")}
+        employees.join(person => person (person.officeNum || person.gitHub || person.school))
+        console.log("The information has been generated!");
+        fs.writeFile("index.html", employees, (err) => {
+        err ? console.error(err) : console.log("There was an error");
+        });
     }
 
-    console.log("Response:", data);
-    fs.appendFile("index.html", html, (err) => {
-    err
-        ? console.error(err)
-        : console.log("The information has been generated!");
-    });
-    
-    // console.log("Response:", data);
-    // fs.writeFile("index.html", html, (err) => {
-    //   err ? console.error(err) : console.log("The information has been generated!");
-    // });
-});
+
+})
 }
 
 begin();
+
+//turn employees array into string do that in the else statement at 268
+
+let closingHTML =
+    `</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>`
